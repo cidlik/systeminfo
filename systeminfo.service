@@ -1,0 +1,12 @@
+[Unit]
+Description=Service for printing system information
+Wants=systeminfo.timer
+
+[Service]
+ExecStartPre=rm -f /run/log/systeminfo.log
+ExecStart=bash -c "/home/cidlik/Development/systeminfo/systeminfo.sh >> /run/log/systeminfo.log"
+ExecStartPost=ln -sf /run/log/systeminfo.log /var/www/html/systeminfo.log
+LogLevelMax=warning
+
+[Install]
+WantedBy=multi-user.target
